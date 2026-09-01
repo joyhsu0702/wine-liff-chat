@@ -65,6 +65,9 @@
       })(document,"script");
 
       window.addEventListener('chatwoot:ready', function () {
+        // 隱藏轉圈圈載入動畫
+        document.querySelector('.loading-box').style.display = 'none';
+        // 自動展開客服對話視窗
         window.$chatwoot.toggle('open');
       });
 
