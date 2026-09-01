@@ -41,24 +41,35 @@
     <p>正在為您連接專屬客服視窗...</p>
   </div>
 
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
-    (function(d,t) {
-      var BASE_URL = "https://crm-node-01.zeabur.app"; 
-      var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      g.src = BASE_URL + "/packs/js/sdk.js";
-      g.defer = true;
-      g.async = true;
-      s.parentNode.insertBefore(g,s);
-      g.onload = function() {
-        window.chatwootSDK.run({
-          websiteToken: 'SQcu1N2zRxPxN5RJSZyy4WVN', 
-          baseUrl: BASE_URL
-        })
-      }
-    })(document,"script");
+    // 1. 初始化 LINE LIFF 應用程式
+    liff.init({
+      liffId: "2011346991-XeFEXFLp" // 先前建立的專屬 LIFF ID
+    }).then(() => {
+      
+      // 2. LIFF 驗證成功後，載入 Chatwoot 客服視窗
+      (function(d,t) {
+        var BASE_URL = "https://crm-node-01.zeabur.app"; 
+        var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        g.src = BASE_URL + "/packs/js/sdk.js";
+        g.defer = true;
+        g.async = true;
+        s.parentNode.insertBefore(g,s);
+        g.onload = function() {
+          window.chatwootSDK.run({
+            websiteToken: 'SQcu1N2zRxPxN5RJSZyy4WVN', 
+            baseUrl: BASE_URL
+          })
+        }
+      })(document,"script");
 
-    window.addEventListener('chatwoot:ready', function () {
-      window.$chatwoot.toggle('open');
+      window.addEventListener('chatwoot:ready', function () {
+        window.$chatwoot.toggle('open');
+      });
+
+    }).catch((err) => {
+      console.error('LIFF 初始化失敗：', err);
     });
   </script>
 </body>
